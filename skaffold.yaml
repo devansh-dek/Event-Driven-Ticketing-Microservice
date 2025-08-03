@@ -1,0 +1,22 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+
+build:
+  local:
+    push: false
+  artifacts:
+    - image: adityasaini/ticketing-auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:              # tells how to handel any project file change into src
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+            
+
