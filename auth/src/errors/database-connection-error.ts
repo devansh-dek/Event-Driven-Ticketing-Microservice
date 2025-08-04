@@ -1,5 +1,5 @@
 export class DatabaseConnectionError extends Error{
-  reason = "Error connection to database "
+  reason = "Error connection to database"
   constructor(){
     super()
 
