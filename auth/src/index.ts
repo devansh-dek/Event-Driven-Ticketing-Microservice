@@ -9,7 +9,6 @@ import { signoutRouter } from "./routes/signout";
 import { errorHandler } from "./middleware/error-handler";
 import { NotFoundError } from "./errors/not-found-error";
 
-
 const app = express();
 app.use(json());
 
@@ -33,7 +32,6 @@ const start = async () => {
   }
 
   app.listen(3000, ()=>{
-    start()
     console.log(`litening on 3000!!!!!!!!!`)
   })
 }
