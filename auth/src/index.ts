@@ -1,6 +1,6 @@
 import express from "express";
 import { json } from "body-parser";
-
+import mongoose from "mongoose";
 
 import { currentUserRouter } from "./routes/current-user";
 import { signinRouter } from "./routes/signin";
@@ -24,6 +24,19 @@ app.all('*',async (req, res, next)=>{
 
 app.use(errorHandler)
 
-app.listen(3000, ()=>{
-  console.log(`litening on 3000!!!!!!!!!`)
-})
+const start = async () => {
+  try{
+    await mongoose.connect('mongodb://mongo-auth-srv:27017/auth')
+    console.log('db connected')
+  }catch(err){
+    console.log(err)
+  }
+
+  app.listen(3000, ()=>{
+    start()
+    console.log(`litening on 3000!!!!!!!!!`)
+  })
+}
+
+start();
+
