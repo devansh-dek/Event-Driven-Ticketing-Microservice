@@ -1,4 +1,3 @@
-import e from "express";
 import mongoose, { Mongoose } from "mongoose";
 import { Password } from "../services/password";
 
@@ -31,6 +30,18 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  }
+},{
+
+  toJSON: {
+    transform(doc, ret:any){
+      ret.id = ret._id
+
+      delete ret._id
+      delete ret.password
+      delete ret.__v
+
+    }
   }
 })
 
