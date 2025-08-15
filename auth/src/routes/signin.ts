@@ -1,4 +1,4 @@
-import express, {Request, Response} from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken'
 
@@ -24,25 +24,22 @@ router.post('/api/users/signin',
 
   validateRequest,
 
-  async (req: Request, res: Response)=> {
+  async (req: Request, res: Response, next: NextFunction)=> {
 
     const {email, password} = req.body;
     const existingUser = await User.findOne({email});
 
     if(!existingUser){
-      throw new BadRequestError('Invalid Credentails')
+      // throw new BadRequestError('Invalid Credentails')
+      return next(new BadRequestError('Invalid Credentials'))  // since async request
     }
-
-    console.log('Exixiting user', existingUser)
 
     const passwordMatch = await Password.toCompare(
       existingUser.password, password
     );
 
-    console.log(2, passwordMatch)
-
     if(!passwordMatch){
-      throw new BadRequestError("Invalid Credentials")
+      return next(new BadRequestError("Invalid Credentials")) ;
     }
 
     const userJwt = jwt.sign({
