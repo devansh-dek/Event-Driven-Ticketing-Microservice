@@ -18,3 +18,12 @@ it('response with details about current user', async () => {
 
 
 });
+
+it('respond with null if not autheticated', async ()=> {
+   const response = await request(app)
+      .get('/api/users/currentuser')
+      .send()
+      .expect(200);
+
+    expect(response.body.currentUser).toEqual(null)
+})
