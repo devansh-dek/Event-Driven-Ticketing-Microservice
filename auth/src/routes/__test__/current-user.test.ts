@@ -2,15 +2,8 @@ import request from 'supertest';
 import { app } from '../../app';
 
 it('response with details about current user', async () => {
-    const signUpResponse = await request(app)
-      .post('/api/users/signup')
-      .send({
-        email: "test@test.com",
-        password: "password"
-      })
-      .expect(201)
 
-    const cookie = signUpResponse.get("Set-Cookie");
+    const cookie = await signin();
     if (!cookie) {
       throw new Error("Expected cookie but got undefined.");
     }
