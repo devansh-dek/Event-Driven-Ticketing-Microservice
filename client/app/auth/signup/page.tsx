@@ -1,18 +1,21 @@
-"use client"
-import axios from "axios";
+"use client";
+import useRequest from "@/hooks/use-request";
 import { useState } from "react";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const resp = await axios.post('/api/users/signup', {
-      email, password
-    })
+  const { doRequest, errors } = useRequest({
+    method: "post",
+    url: "/api/users/signup",
+    body: { email, password },
+  });
 
-    console.log(resp.data)
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = await doRequest();
+    console.log(data);
   };
 
   return (
@@ -23,7 +26,7 @@ export default function SignUp() {
         <label>Email Address</label>
         <input
           value={email}
-          onChange={(e)=>setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           type="email"
         />
       </div>
@@ -33,9 +36,11 @@ export default function SignUp() {
         <input
           value={password}
           type="password"
-          onChange={(e)=>setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+
+      {errors}
 
       <button type="submit">Sign Up</button>
     </form>
