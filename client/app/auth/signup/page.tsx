@@ -10,11 +10,14 @@ export default function SignUp() {
     method: "post",
     url: "/api/users/signup",
     body: { email, password },
+    onSuccess: ()=> window.location.assign("/")
   });
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const data = await doRequest();
+
+
     console.log(data);
   };
 

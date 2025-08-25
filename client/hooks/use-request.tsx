@@ -10,19 +10,23 @@ interface UseRequestProps {
   method: Method;
   url: string;
   body?: any;
+  onSuccess: (data:any)=> void
 }
 
-export default function useRequest({ method, url, body }: UseRequestProps) {
+export default function useRequest({ method, url, body, onSuccess }: UseRequestProps) {
   const [errors, setErrors] = useState<ReactNode>(null);
 
   const doRequest = async <T = any>(): Promise<T | null> => {
     setErrors(null);
     try {
       const resp = await axios.request<T>({
-        method,
-        url,
+        method, url,
         data: body,
       });
+
+      if(onSuccess){
+        onSuccess(resp.data)
+      }
       return resp.data;
     } catch (err) {
       const axiosErr = err as AxiosError<{ errors: ApiError[] }>;
