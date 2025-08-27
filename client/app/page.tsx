@@ -5,14 +5,15 @@ export default async function HomePage() {
   let currentUser = null;
 
   try {
-    // Use Next.js cookies API
-    const cookieStore =await cookies();
-    const sessionCookie = cookieStore.toString();
+    const cookieStore = await cookies();
+    const sessionCookie = cookieStore.get("session")?.value || "";
+
+    console.log("session cookie ***", sessionCookie);
 
     const client = buildClient({
       req: {
         headers: {
-          cookie: sessionCookie,
+          cookie: `session=${sessionCookie}`,
           host: "ticketing.dev",
         },
       },
@@ -20,7 +21,7 @@ export default async function HomePage() {
 
     const response = await client.get("/api/users/currentuser");
     currentUser = response.data.currentUser;
-    console.log('current user ***', currentUser)
+    console.log("current user ***", currentUser);
 
   } catch (err) {
     console.error("Error fetching current user:", err);

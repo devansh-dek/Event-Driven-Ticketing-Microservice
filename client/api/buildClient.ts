@@ -18,6 +18,7 @@ const buildClient = ({ req }: BuildClientContext): AxiosInstance => {
     });
   } else {
     // Client side
+    console.log('building client for browser');
     return axios.create({
       baseURL: "/",
     });

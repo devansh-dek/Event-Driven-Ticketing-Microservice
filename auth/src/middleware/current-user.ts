@@ -25,13 +25,17 @@ export const currentUser = (
     res: Response,
     next: NextFunction
 ) =>{
+    console.log('currentUser middleware invoked');
+    console.log('Session data:', req.session);
 
     if(!req.session?.jwt) {
         return next();
     }
+    console.log('JWT found in session:', req.session.jwt);
 
     try {
         const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY!);
+        console.log('payload ***', payload)
         req.currentUser = payload as UserPayload;
 
     } catch (err) {
