@@ -19,6 +19,7 @@ build:
           - src: 'src/**/*.ts'
             dest: .
 
+
     - image: adityasaini/ticketing-client
       context: client
       docker:
@@ -27,6 +28,16 @@ build:
         manual:
           - src: 'app/**/*'
             dest: .
+
+    - image: adityasaini/ticketing-tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/.ts'
+            dest: .
+
 
 
 
