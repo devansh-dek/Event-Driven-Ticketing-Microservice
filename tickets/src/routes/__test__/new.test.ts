@@ -28,10 +28,44 @@ it('returns a status other than 401 if user is signed in ', async()=>{
 })
 
 it('return an error if invalid title is provided', async()=>{
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', await global.signin())
+    .send({
+      title: "",
+      price: 10
+    })
+    .expect(400)
+
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', await global.signin())
+    .send({
+      price: 10
+    })
+    .expect(400)
+
+
 
 })
 
 it('return an error if invalid price is provided', async()=>{
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', await global.signin())
+    .send({
+      title: "asldj",
+      price: -10
+    })
+    .expect(400)
+
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', await global.signin())
+    .send({
+      title: "asldj",
+    })
+    .expect(400)
 
 })
 
