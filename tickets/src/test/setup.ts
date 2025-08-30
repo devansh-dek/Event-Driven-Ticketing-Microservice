@@ -1,5 +1,6 @@
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
+import jwt from 'jsonwebtoken'
 
 // global signup function
 declare global {
@@ -50,18 +51,31 @@ afterAll(async ()=> {
     await mongoose.connection.close( )
 })
 
+/**
+ * Faking authentication
+ * - not calling auth api
+ * - to ensure test run independently without depedency
+ * -
+ */
 global.signin = async ()=>{
-    const email = 'test@test.com'
-    const password = 'password'
+  // Build a JWT payload {email, password
+  const payload = {
+    id: '1lhdedkeflef',
+    email: 'test@test.com'
+  }
+  // create a jwt!
+  const token = jwt.sign(payload, process.env.JWT_KEY!)
 
-    const response = await request(app)
-      .post('/api/users/signup')
-      .send({
-        email, password
-      })
-      .expect(201)
+  // Build a session object { jwt: MY_JWT}
+  const session = { jwt: token}
 
-    const cokkie = response.get('Set-Cookie') || []
+  // Turn that session to json
+  const sessionJson = JSON.stringify(session)
 
-    return cokkie
+  // Take json and encode it as base64
+  const base64 = Buffer.from(sessionJson).toString('base64')
+
+  // return a string i.e. cokkie with encodded data
+  return [`session=${base64}`];
+
 }
