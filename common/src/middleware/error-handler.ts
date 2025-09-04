@@ -32,6 +32,8 @@ export const errorHandler = (
     })
   }
 
+  console.log(err)
+
   res.status(400).send({
     errors:[{ message:"Something went wrong " }]
   })
