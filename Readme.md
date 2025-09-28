@@ -3,6 +3,8 @@ This project is a ticketing platform built using a microservices architecture. I
 
 - [Technologies](#technologies)
 - [Architecture](#architecture)
+- [Services](#services)
+
 
 ## Technologies
 
@@ -30,3 +32,26 @@ The application follows a microservices architecture, consisting of the followin
 - **Client Service**: Frontend application built with Next.js.
 
 ![Architecture Diagram](./architectures/HLD.png)
+
+## Services
+
+### Auth Service
+- **Path**: `/api/users/*`
+- **Description**: Manages user registration, login, and JWT token generation.
+- **Details**:
+  - Supports user registration with email and password.
+  - Implements password hashing for security.
+  - Provides JWT tokens for authenticated sessions.
+  - Includes middleware for protecting routes.
+
+![Auth Service Architecture](./architectures/Auth.png)
+### Tickets Service
+- **Path**: `/api/tickets/*`
+- **Description**: Handles ticket creation, retrieval, and updates.
+- **Details**:
+  - Allows users to create new tickets with details such as event name, date, and price.
+  - Supports ticket updates and deletion.
+  - Provides endpoints for retrieving ticket information and availability.
+
+![Tickets Service Architecture](./architectures/Ticket.jpg)
+
