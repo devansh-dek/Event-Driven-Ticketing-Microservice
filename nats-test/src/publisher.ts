@@ -1,4 +1,5 @@
 import nats from 'node-nats-streaming';
+console.clear()
 
 const stan = nats.connect(
     'ticketing', 'abc', {
@@ -19,6 +20,6 @@ stan.on('connect', ()=>{
     });
 
     stan.publish(
-        "ticket:created ", data, logPublishData                      // name of channel, data, otional(callback function)
+        "ticket:created", data, logPublishData                      // name of channel, data, otional(callback function)
     )
 });
