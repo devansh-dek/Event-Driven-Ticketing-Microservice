@@ -12,6 +12,11 @@ const stan = nats.connect(
 stan.on('connect', ()=>{
   console.log('listener! conneted to nats :)');
 
+  stan.on('close', ()=>{
+    console.log('NATS connection closed!');
+    process.exit()
+  })
+
   const options = stan
     .subscriptionOptions()
     .setManualAckMode(true)
@@ -33,3 +38,6 @@ stan.on('connect', ()=>{
   })
 
 })
+
+process.on("SIGINT", ()=> stan.close());
+process.on("SIGTERM", ()=> stan.close());
