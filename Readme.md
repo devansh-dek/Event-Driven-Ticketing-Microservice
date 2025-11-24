@@ -55,3 +55,12 @@ The application follows a microservices architecture, consisting of the followin
 
 ![Tickets Service Architecture](./architectures/Ticket.jpg)
 
+### Orders Service
+- **Path**: `/api/orders/*`
+- **Description**: Manages order creation and status updates.
+- **Details**:
+  - Processes orders for tickets, linking them to user accounts.
+  - Supports order status updates (e.g., pending, completed, canceled).
+  - Integrates with payment gateways for transaction processing.
+
+![Orders Service Architecture](./architectures/order.jpg)
