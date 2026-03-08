@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: tickets
-          image: krishsrivastava/tickets
+          image: devanshkhandelwal01/tickets
           env:
             - name: NATS_URL
               value: nats://nats-srv:4222
@@ -22,18 +22,18 @@ spec:
               value: mongodb://tickets-mongo-cluster-srv:27017/tickets
             - name: JWT_SECRET_KEY
               valueFrom:
-                secretKeyRef: 
+                secretKeyRef:
                   name: jwt-secret
                   key: JWT_SECRET_KEY
 ---
 apiVersion: v1
 kind: Service
-metadata: 
+metadata:
   name: tickets-cluster-srv
 spec:
   selector:
     app: tickets
-  ports: 
+  ports:
     - name: tickets-cluster-srv
       protocol: TCP
       port: 3000

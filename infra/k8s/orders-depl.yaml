@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: orders
-          image: krishsrivastava/orders
+          image: devanshkhandelwal01/orders
           env:
             - name: NATS_URL
               value: nats://nats-srv:4222
@@ -22,18 +22,18 @@ spec:
               value: mongodb://orders-mongo-cluster-srv:27017/orders
             - name: JWT_SECRET_KEY
               valueFrom:
-                secretKeyRef: 
+                secretKeyRef:
                   name: jwt-secret
                   key: JWT_SECRET_KEY
 ---
 apiVersion: v1
 kind: Service
-metadata: 
+metadata:
   name: orders-cluster-srv
 spec:
   selector:
     app: orders
-  ports: 
+  ports:
     - name: orders-cluster-srv
       protocol: TCP
       port: 3000

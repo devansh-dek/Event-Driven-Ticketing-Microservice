@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
+metadata:
   name: client-depl
 spec:
   replicas: 1
@@ -11,10 +11,10 @@ spec:
     metadata:
       labels:
         app: client
-    spec: 
+    spec:
       containers:
         - name: client
-          image: krishsrivastava/client
+          image: devanshkhandelwal01/client
 ---
 apiVersion: v1
 kind: Service

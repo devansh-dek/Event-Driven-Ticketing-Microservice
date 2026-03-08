@@ -14,24 +14,24 @@ spec:
     spec:
       containers:
         - name: auth
-          image: krishsrivastava/auth
+          image: devanshkhandelwal01/auth
           env:
             - name: MONGO_URI
               value: mongodb://auth-mongo-cluster-srv:27017/auth
             - name: JWT_SECRET_KEY
               valueFrom:
-                secretKeyRef: 
+                secretKeyRef:
                   name: jwt-secret
                   key: JWT_SECRET_KEY
 ---
 apiVersion: v1
 kind: Service
-metadata: 
+metadata:
   name: auth-cluster-srv
 spec:
   selector:
     app: auth
-  ports: 
+  ports:
     - name: auth-cluster-srv
       protocol: TCP
       port: 3000
